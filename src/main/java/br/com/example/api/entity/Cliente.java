@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
@@ -20,11 +21,14 @@ public class Cliente implements Serializable {
     private Long id;
 
     @Column(name = "nome", nullable = false)
+    @NotBlank
     private String nome;
 
     @Column(name = "email")
+    @NotBlank
     private String email;
 
     @Column(name = "cpf")
+    @NotBlank
     private String cpf;
 }

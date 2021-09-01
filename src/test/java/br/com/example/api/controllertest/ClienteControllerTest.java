@@ -51,7 +51,7 @@ public class ClienteControllerTest {
     }
     @Test
     public void test_Delete() throws Exception {
-        mockMvc.perform(delete("/cliente/6"))
+        mockMvc.perform(delete("/cliente/14"))
                 .andExpect(status().isNoContent());
     }
 }

@@ -1,9 +1,7 @@
 package br.com.example.api.repositorytest;
 
 import br.com.example.api.entity.Cliente;
-import br.com.example.api.exception.ResourceNotFoundException;
 import br.com.example.api.repository.ClienteRepository;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,14 +14,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(value = "/load-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //usando pra me comunicar com a tabela
+@Sql(value = "/load-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//usando pra me comunicar com a tabela
 @TestPropertySource("classpath:application-test.properties")
 @DisplayName("Tests for Cliente Repository")
 public class ClienteRepositoryTeste {
@@ -31,6 +30,7 @@ public class ClienteRepositoryTeste {
 
     @Autowired
     ClienteRepository clienteRepository;
+
 
     @Test
     @DisplayName("Test for List Client")
@@ -57,18 +57,18 @@ public class ClienteRepositoryTeste {
     }
 
     @Test
-    public void put_Cliente(){
+    public void put_Cliente() {
         Cliente cliente = createCliente();
-        cliente.getId();
         clienteRepository.findAll();
         Cliente byId = clienteRepository.getById(cliente.getId());
-        assertEquals(1L,byId.getId());
+        assertEquals(1L, byId.getId());
     }
 
-//    @Test
-//    public void erro_Id_NotExist(){
-//        assertThrows(ResourceNotFoundException.class, () -> clienteRepository.findById(0L));
-//    }
+    @Test
+    @DisplayName("Test Id Not Exist")
+    public void erro_Id_NotExist() {
+        assertEquals(Optional.empty(), clienteRepository.findById(0L));
+    }
 
     private Cliente createCliente() { //utilizado para os testes
         return Cliente.builder()
