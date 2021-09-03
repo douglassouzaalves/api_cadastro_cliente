@@ -3,14 +3,13 @@ package br.com.example.api.exception.handler;
 
 import br.com.example.api.exception.ResourceNotFoundDetails;
 import br.com.example.api.exception.ResourceNotFoundException;
-import br.com.example.api.exception.ResourceNotValidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @ControllerAdvice //informando ao controller que é uma classe que possui informações que devem ser utilizadas
@@ -18,8 +17,8 @@ public class RestExceptionHandler extends Throwable {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rfnException) {
         ResourceNotFoundDetails rnfDetails;
-        rnfDetails = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
-                .timestamp(new Date().getTime())
+        rnfDetails = ResourceNotFoundDetails.builder()
+                .timestamp(LocalDate.now())
                 .status(HttpStatus.NOT_FOUND.value())
                 .title("Resource not found")
                 .details(rfnException.getMessage())
@@ -41,15 +40,15 @@ public class RestExceptionHandler extends Throwable {
 //        return new ResponseEntity<>(rnfDetails, HttpStatus.BAD_REQUEST);
 //    }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> hlandeHttpMessageNotReadable(HttpMessageNotReadableException httpMessageNotReadableException) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> hlandeMethodNotValid(MethodArgumentNotValidException methodArgumentNotValidException) {
         ResourceNotFoundDetails errorDetails;
-        errorDetails = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
-                .timestamp(new Date().getTime())
+        errorDetails = ResourceNotFoundDetails.builder()
+                .timestamp(LocalDate.now())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .title("Erro no corpo da requisição")
-                .details(httpMessageNotReadableException.getCause().getMessage())
-                .developerMessage(httpMessageNotReadableException.getClass().getName())
+                .details(methodArgumentNotValidException.getCause().getMessage())
+                .developerMessage(methodArgumentNotValidException.getClass().getName())
                 .build();
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }

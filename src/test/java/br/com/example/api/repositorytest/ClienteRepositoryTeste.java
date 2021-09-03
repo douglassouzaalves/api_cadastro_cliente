@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //usando pra me comunicar com a tabela
 @TestPropertySource("classpath:application-test.properties")
 @DisplayName("Tests for Cliente Repository")
-public class ClienteRepositoryTeste {
+class ClienteRepositoryTeste {
 
 
     @Autowired
@@ -34,13 +34,14 @@ public class ClienteRepositoryTeste {
 
     @Test
     @DisplayName("Test for List Client")
-    public void list_Cliente() {
+    void list_Cliente() {
         int size = clienteRepository.findAll().size();
         assertEquals(1, size);
     }
 
     @Test
-    public void save_Cliente() {
+    @DisplayName("Test Save Client")
+    void save_Cliente() {
         Cliente cliente = new Cliente(1L, "teste", "teste", "teste");
         clienteRepository.save(cliente);
         int size = clienteRepository.findAll().size();
@@ -49,15 +50,16 @@ public class ClienteRepositoryTeste {
     }
 
     @Test
-    @DisplayName("Test delete")
-    public void delete_Id_Cliente() {
+    @DisplayName("Test Delete Client")
+    void delete_Id_Cliente() {
         clienteRepository.deleteById(1L);
         List<Cliente> listCliente = clienteRepository.findAll();
         assertEquals(0, listCliente.size());
     }
 
     @Test
-    public void put_Cliente() {
+    @DisplayName("Test Put Client")
+    void put_Cliente() {
         Cliente cliente = createCliente();
         clienteRepository.findAll();
         Cliente byId = clienteRepository.getById(cliente.getId());
@@ -65,8 +67,8 @@ public class ClienteRepositoryTeste {
     }
 
     @Test
-    @DisplayName("Test Id Not Exist")
-    public void erro_Id_NotExist() {
+    @DisplayName("Test Client Id Not Exist")
+    void erro_Id_NotExist() {
         assertEquals(Optional.empty(), clienteRepository.findById(0L));
     }
 

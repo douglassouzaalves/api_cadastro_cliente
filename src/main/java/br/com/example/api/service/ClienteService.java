@@ -14,19 +14,21 @@ import java.util.Optional;
 @Data
 @AllArgsConstructor
 @Service
-
-//service usa o design facade?
 public class ClienteService {
 
     final ClienteRepository clienteRepository;
 
+    public Cliente create(Cliente cliente) {
+        return clienteRepository.save(cliente);
+    }
 
-    public Cliente save(Cliente cliente) {
-        Optional<Cliente> clienteUpdate = clienteRepository.findById(cliente.getId());
+    public Cliente save(Cliente cliente, Long id) {
+        Optional<Cliente> clienteUpdate = clienteRepository.findById(id);
         if (clienteUpdate.isPresent()) {
+            cliente.setId(id);
             return clienteRepository.save(cliente);
         } else {
-            throw new ResourceNotFoundException("Não foi possivel realizar a atualização de cliente");
+            throw new ResourceNotFoundException("Não foi possivel atualizar o cliente");
         }
     }
 
@@ -48,8 +50,6 @@ public class ClienteService {
         Optional<Cliente> clienteDelete = clienteRepository.findById(id);
         if (clienteDelete.isPresent()) {
             clienteRepository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("Este id não existe");
         }
 
     }

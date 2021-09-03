@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ClienteControllerTest {
+class ClienteControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -34,7 +34,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    public void test_Post() throws Exception {
+    void test_Post() throws Exception {
 
         Cliente cliente = Cliente.builder()
                 .id(1L)
@@ -49,9 +49,10 @@ public class ClienteControllerTest {
                         .content(objectMapper.writeValueAsString(cliente)))
                 .andExpect(status().isCreated());
     }
+
     @Test
-    public void test_Delete() throws Exception {
-        mockMvc.perform(delete("/cliente/14"))
-                .andExpect(status().isNoContent());
+    void test_Delete() throws Exception {
+        mockMvc.perform(delete("/cliente/11"))
+                .andExpect(status().isOk());
     }
 }
