@@ -42,7 +42,7 @@ class ClienteRepositoryTeste {
     @Test
     @DisplayName("Test Save Client")
     void save_Cliente() {
-        Cliente cliente = new Cliente(1L, "teste", "teste", "teste");
+        Cliente cliente = new Cliente(1L, "teste", "teste@teste.com", "03204080005");
         clienteRepository.save(cliente);
         int size = clienteRepository.findAll().size();
         assertEquals(1, size);

@@ -40,7 +40,7 @@ class ClienteControllerTest {
                 .id(1L)
                 .email("teste@teste.com")
                 .nome("Teste")
-                .cpf("00000000000")
+                .cpf("03204080005")
                 .build();
 
 

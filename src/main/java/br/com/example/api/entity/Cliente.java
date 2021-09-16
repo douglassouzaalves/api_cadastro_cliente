@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,5 +32,6 @@ public class Cliente implements Serializable {
 
     @Column(name = "cpf")
     @NotBlank
+    @CPF
     private String cpf;
 }

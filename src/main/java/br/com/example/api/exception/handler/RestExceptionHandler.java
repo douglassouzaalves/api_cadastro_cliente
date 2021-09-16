@@ -27,18 +27,6 @@ public class RestExceptionHandler extends Throwable {
         return new ResponseEntity<>(rnfDetails, HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler(ResourceNotValidException.class)
-//    public ResponseEntity<?> handleResourceBadRequest(ResourceNotValidException notValidException) {
-//        ResourceNotFoundDetails rnfDetails;
-//        rnfDetails = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
-//                .timestamp(new Date().getTime())
-//                .status(HttpStatus.BAD_REQUEST.value())
-//                .title("Error... Not Found!")
-//                .details(notValidException.getMessage())
-//                .developerMessage(notValidException.getClass().getName())
-//                .build();
-//        return new ResponseEntity<>(rnfDetails, HttpStatus.BAD_REQUEST);
-//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> hlandeMethodNotValid(MethodArgumentNotValidException methodArgumentNotValidException) {

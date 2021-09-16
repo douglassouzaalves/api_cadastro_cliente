@@ -19,8 +19,6 @@ public class ClienteController {
 
     final ClienteService clienteService;
 
-    final ModelMapper modelMapper;
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Cliente salvar(@Valid @RequestBody Cliente cliente) {
@@ -39,7 +37,7 @@ public class ClienteController {
         return clienteService.findById(id).get();
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void removerCliente(@PathVariable("id") Long id) {
         clienteService.deleteId(id);
